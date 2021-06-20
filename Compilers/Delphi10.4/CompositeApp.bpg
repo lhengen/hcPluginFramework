@@ -1,0 +1,45 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = PlugInInterface70.bpl ApplicationCore70.bpl Mileage.bpl Billing.bpl About70.bpl \
+  Palm70.bpl CompositeApp.exe dclhcPlugIns.bpl HengenPalmUI70.bpl
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+Mileage.bpl: Mileage.dpk
+  $(DCC)
+
+ApplicationCore70.bpl: ApplicationCore.dpk
+  $(DCC)
+
+PlugInInterface70.bpl: PlugInInterface.dpk
+  $(DCC)
+
+Billing.bpl: Billing.dpk
+  $(DCC)
+
+About70.bpl: About.dpk
+  $(DCC)
+
+Palm70.bpl: Palm.dpk
+  $(DCC)
+
+CompositeApp.exe: CompositeApp.dpr
+  $(DCC)
+
+dclhcPlugIns.bpl: dclhcPlugIns.dpk
+  $(DCC)
+
+HengenPalmUI70.bpl: ..\..\..\palm\components\HengenPalmUI.dpk
+  $(DCC)
+
+

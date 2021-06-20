@@ -1,0 +1,47 @@
+package hcPlugIns;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS OFF}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'HCI PlugIn Framework Components'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcl,
+  vcljpg,
+  vclactnband,
+  vclx,
+  CSP20I70;
+
+contains
+  hcCorePlugInLoader in 'hcCorePlugInLoader.pas',
+  hcPlugInDesignTime in 'hcPlugInDesignTime.pas',
+  hcApplicationIntf in 'hcApplicationIntf.pas',
+  hcPackageList in 'hcPackageList.pas',
+  hcTypes in 'hcTypes.pas',
+  hcPackageInfo in 'hcPackageInfo.pas',
+  hcVersionInfo in 'hcVersionInfo.pas',
+  fmStdForm in 'fmStdForm.pas' {frmStandard};
+
+end.

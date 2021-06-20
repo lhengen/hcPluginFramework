@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{9CFB2440-AFCC-43BA-8E4F-03F0B5BF999E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PlugInInterface.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ApplicationCore.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="About.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="CompositeApp.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dclhcPlugIns.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PlugInInterface">
+        <MSBuild Projects="PlugInInterface.dproj"/>
+    </Target>
+    <Target Name="PlugInInterface:Clean">
+        <MSBuild Projects="PlugInInterface.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PlugInInterface:Make">
+        <MSBuild Projects="PlugInInterface.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ApplicationCore">
+        <MSBuild Projects="ApplicationCore.dproj"/>
+    </Target>
+    <Target Name="ApplicationCore:Clean">
+        <MSBuild Projects="ApplicationCore.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ApplicationCore:Make">
+        <MSBuild Projects="ApplicationCore.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="About">
+        <MSBuild Projects="About.dproj"/>
+    </Target>
+    <Target Name="About:Clean">
+        <MSBuild Projects="About.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="About:Make">
+        <MSBuild Projects="About.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CompositeApp">
+        <MSBuild Projects="CompositeApp.dproj"/>
+    </Target>
+    <Target Name="CompositeApp:Clean">
+        <MSBuild Projects="CompositeApp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CompositeApp:Make">
+        <MSBuild Projects="CompositeApp.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="dclhcPlugIns">
+        <MSBuild Projects="dclhcPlugIns.dproj"/>
+    </Target>
+    <Target Name="dclhcPlugIns:Clean">
+        <MSBuild Projects="dclhcPlugIns.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dclhcPlugIns:Make">
+        <MSBuild Projects="dclhcPlugIns.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PlugInInterface;ApplicationCore;About;CompositeApp;dclhcPlugIns"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PlugInInterface:Clean;ApplicationCore:Clean;About:Clean;CompositeApp:Clean;dclhcPlugIns:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PlugInInterface:Make;ApplicationCore:Make;About:Make;CompositeApp:Make;dclhcPlugIns:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
