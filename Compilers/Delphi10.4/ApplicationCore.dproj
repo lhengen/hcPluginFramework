@@ -58,11 +58,10 @@
         <DCC_Optimize>false</DCC_Optimize>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_Description>Application Core Engine</DCC_Description>
-        <DCC_DcuOutput>..\..\Lib\Delphi7</DCC_DcuOutput>
         <GenDll>true</GenDll>
         <GenPackage>true</GenPackage>
         <SanitizedProjectName>ApplicationCore</SanitizedProjectName>
-        <DllSuffix>270</DllSuffix>
+        <DllSuffix>$(Auto)</DllSuffix>
         <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;DUnitX.Loggers.GUI;Xml.Internal;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -95,7 +94,6 @@
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-        <DllSuffix>270</DllSuffix>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <DCC_BplOutput>..\..\Bin</DCC_BplOutput>
