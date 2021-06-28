@@ -223,7 +223,7 @@ implementation
 
 uses
   Dialogs
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   ,CodeSiteLogging
   {$endif}  // DEBUG
   ,hcPackageInfo
@@ -276,13 +276,13 @@ end;
 
 constructor TAbstractPlugIn.Create;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('TAbstractPlugIn.Create');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   inherited Create;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TAbstractPlugIn.Create');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 procedure TAbstractPlugIn.AllPlugInsAreLoaded;
@@ -297,16 +297,16 @@ destructor TAbstractPlugin.Destroy;
   in a package when it unloads the package.
 }
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod(Format('TAbstractPlugIn.Destroy %s',[Self.Name]));
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   if assigned(ApplicationServices) then
     ApplicationServices.UnregisterPlugIn(Self);
   // FRegisteredActions.Free;
   inherited Destroy;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TAbstractPlugIn.Destroy');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;    { Destroy }
 
 function TAbstractPlugIn.Description: string;
@@ -405,9 +405,9 @@ var
   Flags: integer;
   localModuleHandle: HModule;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcApplicationPlugInList.LoadPackage');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 
 	saveCursor := Screen.Cursor;
 	Screen.Cursor := crHourGlass;
@@ -463,9 +463,9 @@ begin
 	finally
 		Screen.Cursor := saveCursor;
 	end;  // try/finally
-  {$ifdef DEBUG}
-  CodeSite.ExitMethod('ThcApplicationPlugInList.LoadPackage');
-  {$endif}  // DEBUG
+  {$ifdef hcCodeSite}
+  hcCodeSite.ExitMethod('ThcApplicationPlugInList.LoadPackage');
+  {$endif}  // hcCodeSite
 end;
 
 function ThcApplicationPlugInList.UnLoadPackage(const PackageFileName: string; permanent, showErrorMessages: boolean): boolean;
@@ -474,9 +474,9 @@ var
   localNdx: integer;
   matchingPackageList: ThcPackageCollection;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcApplicationPlugInList.UnLoadPackage');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 
 	saveCursor := Screen.Cursor;
 	Screen.Cursor := crHourGlass;
@@ -520,9 +520,9 @@ begin
 	finally
 		Screen.Cursor := saveCursor;
 	end;  // try/finally
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcApplicationPlugInList.UnLoadPackage');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 function ThcApplicationPlugInList.PackageAlreadyLoaded(PackageFileName: string): boolean;
@@ -554,9 +554,9 @@ var
   localModuleHandle: HModule;
   localModuleName: string;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcApplicationPlugInList.LoadPackages');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 
   saveCursor := Screen.Cursor;
   Screen.Cursor := crHourGlass;
@@ -607,9 +607,9 @@ begin
   finally
   	Screen.Cursor := saveCursor;
   end;  // try/finally
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcApplicationPlugInList.LoadPackages');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 procedure ThcApplicationPlugInList.UnloadPackages(Collection: ThcPackageCollection);
@@ -617,9 +617,9 @@ var
   saveCursor: TCursor;
   j: integer;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcApplicationPlugInList.UnloadPackages');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 
   saveCursor := Screen.Cursor;
   Screen.Cursor := crHourGlass;
@@ -640,9 +640,9 @@ begin
   finally
   	Screen.Cursor := saveCursor;
   end;  // try/finally
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcApplicationPlugInList.UnloadPackages');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 procedure ThcApplicationPlugInList.UnLoadAllPackages;
@@ -657,9 +657,9 @@ var
   nIndex: Integer;
   PackageInfo :ThcPackageInfo;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcApplicationPlugInList.RemovePackage');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 
   nIndex := UserPackages.IndexOf(PackageFileName);
   if nIndex >= 0 then
@@ -670,9 +670,9 @@ begin
     UserPackages.Delete(nIndex);
   end;
 
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcApplicationPlugInList.RemovePackage');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 { TAbstractMenuManager }

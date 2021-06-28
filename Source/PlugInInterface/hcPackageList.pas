@@ -43,7 +43,7 @@ uses
   SysUtils
   ,Registry
   ,INIFiles
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   ,CodeSiteLogging
   {$endif}  // DEBUG
   ;
@@ -72,7 +72,7 @@ function ThcPackageCollection.PackageInList(const PackageFileName: string; check
 var
   j: integer;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcPackageCollection.PackageInList');
   {$endif}  // DEBUG
   result := False;
@@ -101,7 +101,7 @@ begin
       break;
     end;
   end;    { for }
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcPackageCollection.PackageInList');
   {$endif}  // DEBUG
 end;    { PackageInList }
@@ -126,13 +126,13 @@ procedure ThcPackageCollection.RemovePackage(const PackageFileName: string);
 var
   nIndex: Integer;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod(Format('ThcPackageCollection.RemovePackage - %s',[PackageFileName]));
   {$endif}  // DEBUG
   nIndex := IndexOf(PackageFileName);
   if nIndex >= 0 then
     Delete(nIndex);
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcPackageCollection.RemovePackage');
   {$endif}  // DEBUG
 end;

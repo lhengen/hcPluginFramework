@@ -15,6 +15,13 @@ const
   MIN_WIDTH = 210;  //min width and height of toolbar
   MIN_HEIGHT = 56;  //100 with toolbar, 56 without
 
+  {$IFDEF VER340}
+    LIBSUFFIX = '270';
+  {$ENDIF}
+  {$IFDEF VER350}
+    LIBSUFFIX = '280';
+  {$ENDIF}
+
 type
   TToolBarFrm = class(THCIForm)
     ImageList1: TImageList;
@@ -68,7 +75,7 @@ begin
 
   hcCoreManager.OnAfterCoreLoaded := CoreIsLoaded;
   hcCoreManager.LoadProgressLabel := frmSplash.lblProgress;
-  hcCoreManager.CorePlugin := ExtractFilePath(Application.ExeName) + 'ApplicationCore270.bpl';
+  hcCoreManager.CorePlugin := ExtractFilePath(Application.ExeName) + 'ApplicationCore' + LIBSuffix + '.bpl';
   hcCoreManager.LoadCoreEngineAndPlugIns;
   Visible := True;
 end;

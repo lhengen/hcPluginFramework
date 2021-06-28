@@ -1,0 +1,46 @@
+ package PlugInInterface;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS OFF}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Application PlugIn Interface'}
+{$LIBSUFFIX AUTO}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcl;
+
+contains
+  hcApplicationIntf in '..\..\Source\PlugInInterface\hcApplicationIntf.pas',
+  fmStdForm in '..\..\Source\PlugInInterface\fmStdForm.pas' {StdFrm},
+  hcPackageInfo in '..\..\Source\PlugInInterface\hcPackageInfo.pas',
+  hcVersionInfo in '..\..\Source\PlugInInterface\hcVersionInfo.pas',
+  hcPackageList in '..\..\Source\PlugInInterface\hcPackageList.pas',
+  hcCompositeAppTypes in '..\..\Source\PlugInInterface\hcCompositeAppTypes.pas',
+  hcApplicationConsts in '..\..\Source\PlugInInterface\hcApplicationConsts.pas';
+
+end.

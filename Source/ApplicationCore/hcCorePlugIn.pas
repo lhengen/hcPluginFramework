@@ -93,9 +93,9 @@ implementation
 uses
 	Dialogs
 	,SysUtils
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   ,CodeSiteLogging
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   ,Math
   ,OmniXMLPersistent
   ,OmniXML
@@ -144,9 +144,9 @@ procedure ThcFormManager.RegisterFormAction(aPlugIn :TAbstractPlugIn; FormClass 
 var
   FormInfo: ThcFormInfo;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcFormManager.RegisterFormAction');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   FormInfo := ThcFormInfo.Create;
   FormInfo.FormClass := FormClass;
   FormInfo.InstanceSpecifier := InstanceSpecifier;
@@ -160,9 +160,9 @@ begin
   }
   Action.Tag := Integer(FormInfo);
 
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcFormManager.RegisterFormAction');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 
@@ -288,22 +288,22 @@ begin
   Action := Sender as TCustomAction;
   assert(Action.Tag <> 0 ,'Form Action does not have form Info in Tag (Tag = 0)');
   FormInfo := ThcFormInfo(Action.Tag);
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
 //  CodeSite.SendObject('FormInfo', FormInfo);
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   if ((FormInfo.InstanceSpecifier = isSingle) and (InstanceCount(FormInfo) = 0))
     or (FormInfo.InstanceSpecifier = isMultiple) then
   begin
-    {$ifdef DEBUG}
+    {$ifdef hcCodeSite}
     CodeSite.SendMsg('Creating Form Instance');
-    {$endif}  // DEBUG
+    {$endif}  // hcCodeSite
     CreateFormInstance(FormInfo);
   end
   else
   begin
-    {$ifdef DEBUG}
+    {$ifdef hcCodeSite}
     CodeSite.SendMsg('Activating Existing Form Instance');
-    {$endif}  // DEBUG
+    {$endif}  // hcCodeSite
     ActivateInstance(FormInfo);
   end;
 end;
@@ -331,9 +331,9 @@ procedure ThcFormManager.CreateFormInstance(FormInfo :ThcFormInfo);
 var
   aFormInstance: TfrmStandard;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcFormManager.CreateFormInstance');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   //create an instance of the form
   aFormInstance := FormInfo.FormClass.Create(nil);  //todo - fix - do not pass Nil
   aFormInstance.GUID := FormInfo.GUID;
@@ -344,9 +344,9 @@ begin
 
   //show the form instance
   aFormInstance.Show;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcFormManager.CreateFormInstance');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 procedure ThcFormManager.WindowMenuItemClick(Sender :TObject);
@@ -419,9 +419,9 @@ procedure ThcFormManager.ActivateInstance(FormInfo :ThcFormInfo);
 var
   I: Integer;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcFormManager.ActivateInstance');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   for I := 0 to FFormInstances.Count - 1 do    // Iterate
   begin
     if (TForm(FFormInstances[I]).ClassType = FormInfo.FormClass) then
@@ -435,9 +435,9 @@ begin
           SetFocus;
       end;    // with
   end;    // for
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcFormManager.ActivateInstance');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 function ThcMainMenuMenuManager.GetPluginActionInfo(PlugIn:TAbstractPlugIn):TStringList;
@@ -451,9 +451,9 @@ var
   nIndex: Integer;
   GUID: string;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcMainMenuMenuManager.GetPluginActionInfo');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   Result := TStringList.Create;
   GUID := PlugIn.GUID;
   nIndex := FRegisteredActions.IndexOf(GUID);
@@ -464,16 +464,16 @@ begin
     begin
       if FRegisteredActions[I] = GUID then
       begin
-        {$ifdef DEBUG}
+        {$ifdef hcCodeSite}
 //        CodeSite.SendObject(Format('Found Registered Action for GUID %s',[GUID]),FRegisteredActions.Objects[I]);
-        {$endif}  // DEBUG
+        {$endif}  // hcCodeSite
         Result.Add(TAction(FRegisteredActions.Objects[I]).Caption);
       end;
     end;    // for
   end;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcMainMenuMenuManager.GetPluginActionInfo');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 function ThcMainMenuMenuManager.ProcessMenu(const AMenu :TMenuItem; const Action: TCustomAction): TMenuItem;
@@ -524,17 +524,17 @@ begin
   TargetItem := FMenu.Items.Find(TargetItemCaption);
   if assigned(TargetItem) then
   begin
-    {$ifdef DEBUG}
+    {$ifdef hcCodeSite}
     CodeSite.SendMsg(Format('TargetMenu Item with Caption ''%s'' was found', [TargetItemCaption]));
-    {$endif}  // DEBUG
+    {$endif}  // hcCodeSite
     NewItem := TMenuItem.Create(FMenu);
     NewItem.Action := Action;
     //if the target item was found and we are to add the action as a sub menu item then just add to end of menu
     if AddAsSubMenuItem then
     begin
-      {$ifdef DEBUG}
+      {$ifdef hcCodeSite}
       CodeSite.SendMsg(Format('Adding Action ''%s'' as SubMenuItem ', [Action.Caption]));
-      {$endif}  // DEBUG
+      {$endif}  // hcCodeSite
       TargetItem.Add(NewItem)
     end
     else
@@ -546,9 +546,9 @@ begin
       else
         ParentMenuItem := TMenuItem(ParentComponent);
 
-      {$ifdef DEBUG}
+      {$ifdef hcCodeSite}
       CodeSite.SendMsg(Format('Inserting Action ''%s'' into Menu',[Action.Caption]));
-      {$endif}  // DEBUG
+      {$endif}  // hcCodeSite
       if (AddAfterTargetItem) then
         ParentMenuItem.Insert(TargetItem.MenuIndex + 1, NewItem)
       else
@@ -557,9 +557,9 @@ begin
   end
   else
   begin
-    {$ifdef DEBUG}
+    {$ifdef hcCodeSite}
     CodeSite.Send(Format('Could not find menu item with Caption of %s so skipping addition of Action %s', [TargetItemCaption, Action.Caption]));
-    {$endif}  // DEBUG
+    {$endif}  // hcCodeSite
   end;
 end;
 
@@ -574,9 +574,9 @@ var
   nIndex: integer;
   I: Integer;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('ThcMainMenuMenuManager.RemovePlugInActions');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   GUID := PlugIn.GUID;
   nIndex := FRegisteredActions.IndexOf(GUID);
   if nIndex > -1 then
@@ -586,37 +586,37 @@ begin
     begin
       if FRegisteredActions[I] = GUID then
       begin
-        {$ifdef DEBUG}
+        {$ifdef hcCodeSite}
         CodeSite.Send(Format('Found Registered Action for GUID %s',[GUID]),TCustomAction(FRegisteredActions.Objects[I]).Caption);
-        {$endif}  // DEBUG
+        {$endif}  // hcCodeSite
 
         MenuItem := FindMenuItemByAction(TCustomAction(FRegisteredActions.Objects[I]));
         //if we free a Root menu item it will free all it's sub MenuItems so FindMenuItemByAction may return nil
         if assigned(MenuItem) then
         begin
-          {$ifdef DEBUG}
+          {$ifdef hcCodeSite}
           CodeSite.Send('Freeing Menu Item', MenuItem.Caption);
-          {$endif}  // DEBUG
+          {$endif}  // hcCodeSite
           MenuItem.Action := nil;  //free the action links
           MenuItem.Free;
         end;
 
-        {$ifdef DEBUG}
+        {$ifdef hcCodeSite}
         CodeSite.Send('Freeing Action Item', TAction(FRegisteredActions.Objects[I]).Caption);
-        {$endif}  // DEBUG
+        {$endif}  // hcCodeSite
         FRegisteredActions.Objects[I].Free;
 
 
-        {$ifdef DEBUG}
+        {$ifdef hcCodeSite}
         CodeSite.SendFmtMsg('Deleting Registered Action Entry at Index %d',[I]);
-        {$endif}  // DEBUG
+        {$endif}  // hcCodeSite
         FRegisteredActions.Delete(I);
       end;
     end;    // for
   end;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('ThcMainMenuMenuManager.RemovePlugInActions');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 procedure TApplicationServices.RegisterFormAction(APlugIn: TAbstractPlugIn; FormClass :TStdFormClass; InstanceSpecifier :ThcInstanceSpecifier; Action :TCustomAction; TargetItemCaption :string; AddAfterTargetItem :boolean = True; AddAsSubMenuItem :boolean = false);
@@ -629,35 +629,35 @@ procedure TApplicationServices.SavePlugInLists;
 var
   BinFolder: string;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('TApplicationServices.SavePlugInLists');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   BinFolder := ExtractFilePath(Application.EXEName);
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.SendMsg('BinFolder = '+BinFolder);
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   TOmniXMLWriter.SaveToFile(Plugins.UserPackages, BinFolder +'UserPackages.xml',pfAttributes,ofIndent);
   TOmniXMLWriter.SaveToFile(Plugins.SystemPackages, BinFolder +'SystemPackages.xml',pfAttributes,ofIndent);
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TApplicationServices.SavePlugInLists');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 procedure TApplicationServices.LoadPlugInLists;
 var
   BinFolder: string;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('TApplicationServices.LoadPlugInLists');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   BinFolder := ExtractFilePath(Application.EXEName);
   if FileExists(BinFolder +'SystemPackages.xml') then
     TOmniXMLReader.LoadFromFile(Plugins.SystemPackages, BinFolder +'SystemPackages.xml');
   if FileExists(BinFolder +'UserPackages.xml') then
     TOmniXMLReader.LoadFromFile(Plugins.UserPackages, BinFolder +'UserPackages.xml');
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TApplicationServices.LoadPlugInLists');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;
 
 function TApplicationServices.GetMenuManager:TAbstractMenuManager;
@@ -680,24 +680,24 @@ end;    { Destroy }
 
 procedure TApplicationServices.RegisterPlugIn(APlugIn: TAbstractPlugIn);
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('TApplicationServices.RegisterPlugIn');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
   //add the Plugin to the list if it's Name is not found
   if assigned(APlugIn) and (Plugins.IndexOf(APlugIn.Name) = -1) then
   begin
     Plugins.Add(APlugIn);
   end;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TApplicationServices.RegisterPlugIn');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;		{ RegisterPlugIn }
 
 procedure TApplicationServices.UnregisterPlugIn(APlugIn: TAbstractPlugIn);
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('TApplicationServices.UnregisterPlugIn');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
  	if assigned(APlugIn) then
   begin
     //remove the plugin from the list
@@ -710,18 +710,18 @@ begin
     MenuManager.RemovePlugInActions(APlugIn);
 
   end;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TApplicationServices.UnregisterPlugIn');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;		{ UnregisterPlugIn }
 
 function TApplicationServices.GetPlugIn(const plugInName: string): TAbstractPlugIn;
 var
 	j: integer;
 begin
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.EnterMethod('TApplicationServices.GetPlugIn');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 	result := nil;
 	with PlugIns do
 		for j := 0 to Count - 1 do		{ Iterate through registered plug-ins. }
@@ -730,9 +730,9 @@ begin
         result := TAbstractPlugIn(Items[j]);
         exit;
       end;
-  {$ifdef DEBUG}
+  {$ifdef hcCodeSite}
   CodeSite.ExitMethod('TApplicationServices.GetPlugIn');
-  {$endif}  // DEBUG
+  {$endif}  // hcCodeSite
 end;		{ GetPlugIn }
 
 
