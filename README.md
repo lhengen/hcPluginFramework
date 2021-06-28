@@ -10,7 +10,7 @@ Codesite Express - available through GetIt
 
 Getting Started
 ---------------
-1) Open the CompositeApp.bpg file in Compilers\Delphi10.4\ compile and run.  
+1) Open the CompositeApp.groupproj file in Compilers\Delphi10.4\ compile and run.  
 
 You may wish to delete the DPROJ file and have the IDE re-create it, depending on the version of Delphi you're using.
 
